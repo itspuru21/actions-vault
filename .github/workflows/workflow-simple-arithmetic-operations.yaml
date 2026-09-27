@@ -2,6 +2,8 @@ name: Test Arithmetic Calculator
 
 on:
   workflow_dispatch:
+  push:
+    branches: [py-simple-arithmetic-ops]
 
 jobs:
   run-calculator:
@@ -9,6 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+            sparse-checkout: |
+                ./.github
+                ./docker-actions/python/fun-actions/simple-arithmetic-operations
+
 
       - name: Run Calculator Action
         id: calc

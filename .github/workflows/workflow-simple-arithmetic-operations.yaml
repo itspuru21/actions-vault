@@ -1,0 +1,32 @@
+name: Test Arithmetic Calculator
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [py-simple-arithmetic-ops]
+
+jobs:
+  run-calculator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            sparse-checkout: |
+                ./.github
+                ./docker-actions/python/fun-actions/simple-arithmetic-operations
+
+
+      - name: Run Calculator Action
+        id: calc
+        uses: ./docker-actions/python/fun-actions/simple-arithmetic-operations
+        with:
+          num1: '50'
+          num2: '5'
+
+      - name: Display All Results
+        run: |
+          echo "Sum: ${{ steps.calc.outputs.sum }}"
+          echo "Difference: ${{ steps.calc.outputs.difference }}"
+          echo "Product: ${{ steps.calc.outputs.product }}"
+          echo "Quotient: ${{ steps.calc.outputs.quotient }}"

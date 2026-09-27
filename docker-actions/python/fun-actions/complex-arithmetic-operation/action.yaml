@@ -1,0 +1,25 @@
+name: 'Scientific Calculator Action'
+description: 'Performs advanced math operations like square root, power, factorial, and log using Python.'
+inputs:
+  operation:
+    description: 'Operation to perform: sqrt, power, factorial, log'
+    required: true
+    default: 'sqrt'
+  value:
+    description: 'The primary number input'
+    required: true
+    default: '0'
+  power:
+    description: 'The exponent value (only used if operation is power)'
+    required: false
+    default: '2'
+outputs:
+  result:
+    description: 'The calculated scientific result'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.operation }}
+    - ${{ inputs.value }}
+    - ${{ inputs.power }}

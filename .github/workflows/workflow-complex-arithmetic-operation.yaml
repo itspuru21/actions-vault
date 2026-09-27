@@ -1,0 +1,28 @@
+name: Test Scientific Calculator
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [py-simple-arithmetic-ops]
+
+jobs:
+  run-scientific-calc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout only target action
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            docker-actions/python/fun-actions/complex-arithmetic-operation
+
+      - name: Run Factorial Calculation
+        id: sci-step
+        uses: ./docker-actions/python/fun-actions/complex-arithmetic-operation
+        with:
+          operation: 'factorial'
+          value: '5'
+
+      - name: Verify Output
+        run: |
+          echo "Factorial of 5 is: ${{ steps.sci-step.outputs.result }}"

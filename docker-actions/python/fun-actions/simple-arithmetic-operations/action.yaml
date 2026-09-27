@@ -1,0 +1,26 @@
+name: 'Arithmetic Calculator Action'
+description: 'Takes two numbers and calculates addition, subtraction, multiplication, and division.'
+inputs:
+  num1:
+    description: 'The first number'
+    required: true
+    default: '0'
+  num2:
+    description: 'The second number'
+    required: true
+    default: '0'
+outputs:
+  sum:
+    description: 'The sum (num1 + num2)'
+  difference:
+    description: 'The difference (num1 - num2)'
+  product:
+    description: 'The product (num1 * num2)'
+  quotient:
+    description: 'The quotient (num1 / num2)'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.num1 }}
+    - ${{ inputs.num2 }}
